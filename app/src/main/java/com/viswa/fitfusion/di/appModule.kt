@@ -1,6 +1,6 @@
 package com.viswa.fitfusion.di
 
-import com.viswa.fitfusion.viewmodel.FitnessViewModel
+import com.viswa.fitfusion.viewmodel.fitnessviewmodel.FitnessViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
