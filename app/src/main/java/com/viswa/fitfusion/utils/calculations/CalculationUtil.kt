@@ -1,5 +1,11 @@
 package com.viswa.fitfusion.utils.calculations
 
+// Enum to represent the scale direction
+enum class ScaleTransitionDirection {
+    INWARDS,
+    OUTWARDS
+}
+
 class CalculationUtils {
 
     // BMI Calculation
