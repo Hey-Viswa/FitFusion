@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui.text.google.fonts)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -71,5 +72,11 @@ dependencies {
     // Koin
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.navigation)
+
+    // Compose Navigation
+    implementation (libs.androidx.navigation.compose)
+
+    // Extended Icons
+    implementation(libs.androidx.material.icons.extended)
 
 }
