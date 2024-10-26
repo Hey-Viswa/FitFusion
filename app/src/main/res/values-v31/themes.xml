@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.FitFusion" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.FitFusion.splashScreen" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowSplashScreenBackground">@color/white</item>
 
         <!-- The icon shown during the splash screen -->
@@ -13,5 +13,4 @@
         <!-- Set the theme that will be applied after the splash screen -->
         <item name="postSplashScreenTheme">@style/Theme.FitFusion</item>
     </style>
-
 </resources>
