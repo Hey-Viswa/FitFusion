@@ -5,6 +5,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/design"/> <!-- App icon or custom logo -->
+            android:src="@drawable/fitness_pictogram_1_svgrepo_com"/> <!-- App icon or custom logo -->
     </item>
 </layer-list>

@@ -1,6 +1,6 @@
 [versions]
 accompanistSystemuicontroller = "0.31.0-alpha"
-agp = "8.6.1"
+agp = "8.7.1"
 coreSplashscreen = "1.0.1"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
@@ -15,6 +15,8 @@ material = "1.7.2"
 materialIconsExtended = "1.7.2"
 navigationCompose = "2.8.1"
 uiTextGoogleFonts = "1.7.2"
+googleGmsGoogleServices = "4.4.2"
+firebaseStorage = "21.0.1"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -39,9 +41,11 @@ koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = 
 koin-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koin_version" }
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 material = { module = "androidx.compose.material:material", version.ref = "material" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 
