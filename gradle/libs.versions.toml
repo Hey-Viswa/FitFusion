@@ -3,8 +3,9 @@ accompanistSystemuicontroller = "0.31.0-alpha"
 agp = "8.7.2"
 coilCompose = "1.4.0"
 coreSplashscreen = "1.0.1"
+firebaseBom = "33.5.1"
 kotlin = "2.0.0"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -12,17 +13,17 @@ ktorClientAndroid = "3.0.0"
 ktorClientJson = "3.0.0"
 ktorClientSerialization = "3.0.0"
 ktorClientLogging = "3.0.0"
-lifecycleRuntimeKtx = "2.8.6"
+lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.10.00"
+composeBom = "2024.11.00"
 koin_version = "4.0.0"
-material = "1.7.4"
-materialIconsExtended = "1.7.4"
-navigationCompose = "2.8.3"
-okhttp = "4.9.1"
-uiTextGoogleFonts = "1.7.4"
+material = "1.7.5"
+materialIconsExtended = "1.7.5"
+navigationCompose = "2.8.4"
+uiTextGoogleFonts = "1.7.5"
 googleGmsGoogleServices = "4.4.2"
 firebaseStorage = "21.0.1"
+firebaseDatabase = "21.0.0"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -53,7 +54,7 @@ ktor-client-json = { module = "io.ktor:ktor-client-json", version.ref = "ktorCli
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientAndroid" }
 material = { module = "androidx.compose.material:material", version.ref = "material" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
-okhttp = { module = "squareup.okhttp3:okhttp", version.ref = "okhttp" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

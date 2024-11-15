@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.viswa.fitfusion"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.viswa.fitfusion"
@@ -62,7 +62,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui.text.google.fonts)
-    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -98,6 +97,8 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+
+    // Firebase
 
 
 

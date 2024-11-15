@@ -2,11 +2,16 @@ package com.viswa.fitfusion.ui
 
 
 import OnboardingScreen
+import android.R.attr.label
+import android.R.attr.onClick
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +30,7 @@ import com.viswa.fitfusion.ui.screens.exercise.WorkoutScreen
 import com.viswa.fitfusion.ui.screens.plan.PlansScreen
 import com.viswa.fitfusion.ui.screens.profile.ProfileScreen
 import com.viswa.fitfusion.ui.screens.progress.ProgressScreen
+import com.viswa.fitfusion.ui.theme.Transparent
 import com.viswa.fitfusion.utils.calculations.AnimationUtil
 import com.viswa.fitfusion.utils.calculations.ScaleTransitionDirection
 
@@ -45,7 +51,10 @@ fun MainScreen(
 
             // Conditionally display the bottom navigation bar
             if (currentRoute in bottomNavRoutes) {
-                NavigationBar {
+                NavigationBar(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onBackground,
+                ) {
                     val currentDestination = navBackStackEntry!!.destination
                     topLevelRoute.forEach { topLevelRoute ->
                         NavigationBarItem(
@@ -62,7 +71,7 @@ fun MainScreen(
                                     overflow = TextOverflow.Ellipsis // Show ellipsis for overflow
                                 )
                             },
-                            selected = currentDestination?.hierarchy?.any {
+                            selected = currentDestination.hierarchy.any {
                                 // Compare the route class directly
                                 it.route == topLevelRoute.route.toString()
                             } == true,
@@ -75,7 +84,15 @@ fun MainScreen(
                                     launchSingleTop = true
                                     restoreState = true
                                 }
-                            }
+                            },
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = MaterialTheme.colorScheme.primary,
+                                unselectedIconColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                                selectedTextColor = MaterialTheme.colorScheme.primary,
+                                unselectedTextColor = MaterialTheme.colorScheme.onBackground.copy
+                                    (alpha = 0.7f),
+                                indicatorColor = Transparent
+                            )
                         )
                     }
                 }

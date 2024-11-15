@@ -28,4 +28,4 @@ val inverseOnSurface = Color(0xFF121212) // Dark text on the inverse surface.
 // Specific elements
 val buttonBackgroundColor = primary // Use the primary color as the button background.
 val textButtonColor = Color(0xFFBFFF00) // The color for text buttons like "Back", matches the highlight color.
-
+val Transparent = Color.Transparent
