@@ -90,4 +90,15 @@ dependencies {
     // Splash Screen Api
     implementation(libs.androidx.core.splashscreen)
 
+    // Ktor
+    implementation (libs.ktor.client.android)
+    implementation (libs.ktor.client.json)
+    implementation (libs.ktor.client.serialization)
+    implementation (libs.ktor.client.logging)
+
+    // Coil
+    implementation(libs.coil.compose)
+
+
+
 }

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.viswa.fitfusion" />
+                  <option name="mobileSdkAppId" value="1:341487889099:android:f97f018a529d087624c94e" />
+                  <option name="projectId" value="fitfusion-4cd13" />
+                  <option name="projectNumber" value="341487889099" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

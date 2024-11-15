@@ -1,20 +1,26 @@
 [versions]
 accompanistSystemuicontroller = "0.31.0-alpha"
-agp = "8.7.1"
+agp = "8.7.2"
+coilCompose = "1.4.0"
 coreSplashscreen = "1.0.1"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+ktorClientAndroid = "3.0.0"
+ktorClientJson = "3.0.0"
+ktorClientSerialization = "3.0.0"
+ktorClientLogging = "3.0.0"
 lifecycleRuntimeKtx = "2.8.6"
-activityCompose = "1.9.2"
-composeBom = "2024.09.02"
+activityCompose = "1.9.3"
+composeBom = "2024.10.00"
 koin_version = "4.0.0"
-material = "1.7.2"
-materialIconsExtended = "1.7.2"
-navigationCompose = "2.8.1"
-uiTextGoogleFonts = "1.7.2"
+material = "1.7.4"
+materialIconsExtended = "1.7.4"
+navigationCompose = "2.8.3"
+okhttp = "4.9.1"
+uiTextGoogleFonts = "1.7.4"
 googleGmsGoogleServices = "4.4.2"
 firebaseStorage = "21.0.1"
 
@@ -24,6 +30,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -40,8 +47,13 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin_version" }
 koin-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koin_version" }
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientLogging" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientSerialization" }
+ktor-client-json = { module = "io.ktor:ktor-client-json", version.ref = "ktorClientJson" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientAndroid" }
 material = { module = "androidx.compose.material:material", version.ref = "material" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
+okhttp = { module = "squareup.okhttp3:okhttp", version.ref = "okhttp" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
