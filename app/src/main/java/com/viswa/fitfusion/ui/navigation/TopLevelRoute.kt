@@ -15,3 +15,10 @@ val topLevelRoute = listOf(
     TopLevelRoute("Progress", "progress", Icons.Outlined.BarChart),
     TopLevelRoute("Profile", "profile", Icons.Outlined.Person)
 )
+
+object OnboardingRoutes {
+    const val ONBOARDING = "onboarding"
+    const val GENDER = "gender"
+    const val AGE_PICKER = "age_picker"
+    // Add other onboarding routes if necessary
+}

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.gms.google.services)
+
 }
 
 android {
@@ -75,7 +76,7 @@ dependencies {
     implementation(libs.koin.compose.navigation)
 
     // Compose Navigation
-    implementation (libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
 
     // Extended Icons
     implementation(libs.androidx.material.icons.extended)
@@ -84,22 +85,32 @@ dependencies {
     implementation(libs.material)
 
     // SystemUiController
-    implementation (libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.systemuicontroller)
 
     // Splash Screen Api
     implementation(libs.androidx.core.splashscreen)
 
     // Ktor
-    implementation (libs.ktor.client.android)
-    implementation (libs.ktor.client.json)
-    implementation (libs.ktor.client.serialization)
-    implementation (libs.ktor.client.logging)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.json)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.logging)
 
     // Coil
     implementation(libs.coil.compose)
 
     // Firebase
+    // Import the Firebase BoM
+    implementation(platform(libs.firebase.bom))
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation(libs.play.services.auth)
+    implementation ("com.google.firebase:firebase-analytics-ktx")
 
+
+    // DataStore
+    implementation (libs.androidx.datastore.preferences)
 
 
 }

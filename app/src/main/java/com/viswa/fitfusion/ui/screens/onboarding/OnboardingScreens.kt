@@ -1,4 +1,3 @@
-import android.R.attr.animationDuration
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -7,29 +6,31 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -41,14 +42,6 @@ import io.ktor.utils.io.jvm.javaio.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
-
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Outline
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.drawscope.clipPath
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.unit.LayoutDirection
 
 class SlantedShape(
     private val slantHeight: Float = 200f // Increase this value for a more pronounced slant
@@ -62,7 +55,10 @@ class SlantedShape(
             // Define the points to create a more slanted edge
             moveTo(0f, 0f)  // Top-left corner
             lineTo(size.width, 0f)  // Top-right corner
-            lineTo(size.width, size.height - slantHeight)  // More pronounced slant at bottom-right corner
+            lineTo(
+                size.width,
+                size.height - slantHeight
+            )  // More pronounced slant at bottom-right corner
             lineTo(0f, size.height)  // Bottom-left corner
             close()  // Close the path to connect back to the starting point
         }
@@ -70,10 +66,10 @@ class SlantedShape(
     }
 }
 
-
 @Composable
 fun OnboardingScreen(
-    navController: NavController,
+    navController: NavController, // You can remove this if you're using `onComplete` for navigation
+    onComplete: () -> Unit, // Callback to notify that onboarding is complete
     titleFontSize: Float = 28f,
     descriptionFontSize: Float = 18f,
     buttonStyle: @Composable (text: String, onClick: () -> Unit) -> Unit = { text, onClick ->
@@ -96,9 +92,13 @@ fun OnboardingScreen(
 
     var currentPage by remember { mutableStateOf(0) }
     var imageBitmap by remember { mutableStateOf<ImageBitmap?>(null) }
+    var isLoading by remember { mutableStateOf(true) } // Loading state to manage progress indicator
 
     LaunchedEffect(currentPage) {
+        isLoading = true
         imageBitmap = loadImageFromUrl(client, imageUrls[currentPage], imageCache)
+        isLoading = false
+
         if (currentPage + 1 < imageUrls.size) {
             val nextUrl = imageUrls[currentPage + 1]
             if (!imageCache.containsKey(nextUrl)) {
@@ -112,26 +112,55 @@ fun OnboardingScreen(
             .fillMaxSize()
             .background(Color.Black) // Set black background for better visual contrast
     ) {
-        // Full Width and Edge-to-Edge Image with Slanted Cut
-        if (imageBitmap != null) {
-            Image(
-                bitmap = imageBitmap!!,
-                contentDescription = "Fitness App Onboarding Image",
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(450.dp) // Increased height to make the image more impactful
+        ) {
+            if (isLoading) {
+                // Show Loading Indicator while the image is loading
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(color = Color(0xFFBFFF00)) // Bright green loading indicator
+                }
+            } else {
+                // Full Width and Edge-to-Edge Image with Slanted Cut
+                if (imageBitmap != null) {
+                    Image(
+                        bitmap = imageBitmap!!,
+                        contentDescription = "Fitness App Onboarding Image",
+                        modifier = Modifier
+                            .fillMaxWidth() // Fill the entire width of the screen
+                            .height(450.dp) // Increased height to make the image more impactful
+                            .clip(SlantedShape(slantHeight = 150f)), // Slanted bottom to match the increased height
+                        contentScale = ContentScale.Crop // Makes sure the image fills width and crops the excess
+                    )
+                } else {
+                    // In case loading fails, you could show an error message or retry
+                    Text(
+                        text = "Failed to load image",
+                        color = Color.Red,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+            }
+
+            // "Skip to Get Started" button overlayed on top of the image at the top right
+            Text(
+                text = "Skip",
+                color = Color(0xFFBFFF00), // Bright green color for the skip button
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .fillMaxWidth() // Fill the entire width of the screen
-                    .height(450.dp) // Increased height to make the image more impactful
-                    .clip(SlantedShape(slantHeight = 150f)), // Slanted bottom to match the increased height
-                contentScale = ContentScale.Crop // Makes sure the image fills width and crops the excess
-            )
-        } else {
-            Image(
-                painter = painterResource(id = android.R.drawable.ic_menu_report_image),
-                contentDescription = "Placeholder Image",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(500.dp) // Increased height to match the actual image
-                    .clip(SlantedShape(slantHeight = 150f)), // Keep the slanted bottom consistent
-                contentScale = ContentScale.Crop
+                    .align(Alignment.TopEnd) // Align the text to the top right
+                    .statusBarsPadding() // Apply padding to avoid the status bar
+                    .padding(16.dp)
+                    .clickable {
+                        // Trigger the `onComplete` callback instead of using navController directly
+                        onComplete()
+                    }
             )
         }
 
@@ -188,6 +217,7 @@ fun OnboardingScreen(
                 modifier = Modifier.padding(vertical = 8.dp) // Adjust padding to bring the indicator closer
             )
             Spacer(modifier = Modifier.height(16.dp)) // Spacer before the PageIndicator
+
             // Row containing buttons
             Row(
                 modifier = Modifier
@@ -218,9 +248,8 @@ fun OnboardingScreen(
                     CustomButton(
                         text = "Get Started",
                         onClick = {
-                            navController.navigate("workout") {
-                                popUpTo("onboarding") { inclusive = true }
-                            }
+                            // Trigger the `onComplete` callback when the onboarding is done
+                            onComplete()
                         },
                         modifier = Modifier.align(Alignment.CenterVertically)
                     )
@@ -229,6 +258,7 @@ fun OnboardingScreen(
         }
     }
 }
+
 
 @Composable
 fun CustomButton(
@@ -301,9 +331,6 @@ fun CustomTextButton(
 }
 
 
-
-
-
 @Composable
 fun PageIndicatorStyle(
     currentPage: Int,
@@ -338,13 +365,14 @@ fun PageIndicatorStyle(
                     .padding(horizontal = 4.dp)
                     .width(dotWidth * scale) // Scale width to emphasize selected indicator
                     .height(dotHeight) // Fixed height to keep it "flat"
-                    .background(dotColor, shape = RoundedCornerShape(percent = 50)) // Rounded corners for a pill-like shape
+                    .background(
+                        dotColor,
+                        shape = RoundedCornerShape(percent = 50)
+                    ) // Rounded corners for a pill-like shape
             )
         }
     }
 }
-
-
 
 
 // Function to load the image from a URL using Ktor with caching
@@ -357,8 +385,17 @@ suspend fun loadImageFromUrl(
         // Check if the image is already in the cache
         imageCache[url]?.let { return@withContext it }
 
+        // Log URL that you're trying to access
+        println("Loading image from URL: $url")
+
         // Fetch the image data
         val response: HttpResponse = client.get(url)
+
+        if (response.status.value != 200) {
+            println("Failed to load image. HTTP Status: ${response.status.value}")
+            return@withContext null
+        }
+
         val inputStream = response.bodyAsChannel().toInputStream()
         val bitmap = android.graphics.BitmapFactory.decodeStream(inputStream)
         val imageBitmap = bitmap?.asImageBitmap()
