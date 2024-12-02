@@ -2,11 +2,13 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.gms.google.services)
+
 }
 
 android {
     namespace = "com.viswa.fitfusion"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.viswa.fitfusion"
@@ -60,6 +62,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui.text.google.fonts)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -71,5 +74,43 @@ dependencies {
     // Koin
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.navigation)
+
+    // Compose Navigation
+    implementation(libs.androidx.navigation.compose)
+
+    // Extended Icons
+    implementation(libs.androidx.material.icons.extended)
+
+    // Material
+    implementation(libs.material)
+
+    // SystemUiController
+    implementation(libs.accompanist.systemuicontroller)
+
+    // Splash Screen Api
+    implementation(libs.androidx.core.splashscreen)
+
+    // Ktor
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.json)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.logging)
+
+    // Coil
+    implementation(libs.coil.compose)
+
+    // Firebase
+    // Import the Firebase BoM
+    implementation(platform(libs.firebase.bom))
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation(libs.play.services.auth)
+    implementation ("com.google.firebase:firebase-analytics-ktx")
+
+
+    // DataStore
+    implementation (libs.androidx.datastore.preferences)
+
 
 }
