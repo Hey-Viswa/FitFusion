@@ -3,8 +3,9 @@ package com.viswa.fitfusion.di
 
 
 
-import OnboardingViewModel
+
 import com.viswa.fitfusion.viewmodel.fitnessviewmodel.FitnessViewModel
+import com.viswa.fitfusion.viewmodel.fitnessviewmodel.OnboardingViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 

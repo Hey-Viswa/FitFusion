@@ -1,31 +1,40 @@
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.viswa.fitfusion.data.repository.DataStoreManager
-import kotlinx.coroutines.tasks.await
+package com.viswa.fitfusion.data.repository
 
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 class UserRepository(private val dataStoreManager: DataStoreManager) {
 
-    suspend fun uploadGender(selectedGender: String): Boolean {
-        val db = Firebase.firestore
-        val currentUser = Firebase.auth.currentUser
+    private val firestore = FirebaseFirestore.getInstance()
 
-        val userGender = hashMapOf("gender" to selectedGender)
+    // Function to upload multiple fields to Firestore
+    suspend fun uploadUserData(gender: String, age: String, weight: String): Boolean {
+        val userId = dataStoreManager.getUserId()  // This is now a suspend call to fetch the user ID
 
-        return try {
-            if (currentUser != null) {
-                val userId = currentUser.uid
-                db.collection("users").document(userId).set(userGender).await()
-            } else {
-                db.collection("users").add(userGender).await()
+        if (userId != null) {
+            val userDocRef = firestore.collection("users").document(userId)
+            val userData = mapOf(
+                "gender" to gender,
+                "age" to age,
+                "weight" to weight
+            )
+            try {
+                userDocRef.set(userData).await() // Use .set() to replace data or .update() to modify existing fields
+                return true
+            } catch (e: Exception) {
+                println("Error uploading user data: ${e.message}")
+                return false
             }
-            true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
+        } else {
+            throw IllegalStateException("User ID is null")
         }
     }
 
+    // Function to save user ID in DataStore
+    suspend fun saveUserId(userId: String) {
+        dataStoreManager.saveUserId(userId) // You need to implement this method in DataStoreManager
+    }
+
+    // Function to mark onboarding as complete
     suspend fun setOnboardingComplete(isComplete: Boolean) {
         dataStoreManager.setOnboardingComplete(isComplete)
     }

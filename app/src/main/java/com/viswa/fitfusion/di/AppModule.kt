@@ -1,7 +1,8 @@
 package com.viswa.fitfusion.di
 
-import UserRepository
-import com.viswa.fitfusion.data.repository.DataStoreManager
+import DataStoreManager
+import com.viswa.fitfusion.data.repository.UserRepository
+
 import org.koin.dsl.module
 
 

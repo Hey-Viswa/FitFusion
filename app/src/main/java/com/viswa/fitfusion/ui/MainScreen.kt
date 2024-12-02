@@ -1,9 +1,10 @@
 package com.viswa.fitfusion.ui
 
 import AgePickerScreen
+import DataStoreManager
 import GenderSelectionScreen
 import OnboardingScreen
-import UserRepository
+import com.viswa.fitfusion.data.repository.UserRepository
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -24,10 +25,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
-import com.viswa.fitfusion.data.repository.DataStoreManager
 import com.viswa.fitfusion.ui.navigation.OnboardingRoutes
 import com.viswa.fitfusion.ui.navigation.TopLevelRoute
 import com.viswa.fitfusion.ui.navigation.topLevelRoute
@@ -38,6 +35,7 @@ import com.viswa.fitfusion.ui.screens.progress.ProgressScreen
 import com.viswa.fitfusion.ui.theme.Transparent
 import com.viswa.fitfusion.utils.calculations.AnimationUtil
 import com.viswa.fitfusion.viewmodel.OnboardingViewModelFactory
+import com.viswa.fitfusion.viewmodel.fitnessviewmodel.OnboardingViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -134,6 +132,7 @@ fun MainNavHost(
 
         // Gender Selection Screen
         // MainNavHost function where you use the GenderSelectionScreen
+        // Gender Selection Screen
         composable(OnboardingRoutes.GENDER) {
             val coroutineScope = rememberCoroutineScope() // Create coroutine scope
 
@@ -145,19 +144,23 @@ fun MainNavHost(
                 onGenderSelected = { selectedGender ->
                     // Launch a coroutine to call the suspend function
                     coroutineScope.launch {
-                        val success = onboardingViewModel.uploadGender(selectedGender)
+                        val success = onboardingViewModel.uploadUserData(
+                            gender = selectedGender, // Pass gender here
+                            age = "", // Use actual age if available
+                            weight = "" // Use actual weight if available
+                        )
                         if (success) {
                             // Navigate to the Age Picker screen after a successful upload
                             navController.navigate(OnboardingRoutes.AGE_PICKER)
                         } else {
                             // Handle error if the upload fails
-                            // You can add a callback or show a message accordingly
                             println("Failed to upload gender. Please try again.")
                         }
                     }
                 }
             )
         }
+
 
         // Age Picker Screen
         composable(OnboardingRoutes.AGE_PICKER) {

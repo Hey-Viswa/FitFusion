@@ -1,10 +1,11 @@
 package com.viswa.fitfusion.viewmodel
 
 
-import OnboardingViewModel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-
+import com.viswa.fitfusion.data.repository.UserRepository
+import com.viswa.fitfusion.viewmodel.fitnessviewmodel.OnboardingViewModel
 
 
 class OnboardingViewModelFactory(private val userRepository: UserRepository) : ViewModelProvider.Factory {
